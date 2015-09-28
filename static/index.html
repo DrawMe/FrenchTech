@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head lang="en">
+		<meta charset="UTF-8">
+		<title>Web RTC</title>
+		<script src="http://192.168.0.44:3000/socket.io/socket.io.js"></script>
+		<script src="vendor/peer.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	</head>
+	<body>
+
+		<h2>Infos</h2>
+		<p>Your id: <strong id="user"></strong></p>
+		<p><strong id="state">Unconnect to peer server</strong></p>
+
+		<h2>Users</h2>
+		<ul id="users">
+		</ul>
+
+		<h2>Video</h2>
+		<video id="video" autoplay width="400" height="300"></video>
+
+	</body>
+
+	<script src="js/client.js"></script>
+
+</html>
