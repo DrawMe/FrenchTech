@@ -72,7 +72,6 @@ io.on('connection', function (socket) {
 	});
 });
 
-
 /** START **/
 
 server.listen(3000, function(){

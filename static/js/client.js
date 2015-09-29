@@ -1,3 +1,5 @@
+var that = this;
+
 var socket;
 var video = $('#video')[0];
 // users
@@ -46,7 +48,7 @@ ConnectVideo.prototype.initSocket = function () {
 ConnectVideo.prototype.initEvents = function(){
     /** SENDING CALL **/
     // listen for click on users list to connect
-    $('body').on('click', '#users a', this.askCall);
+   // $('body').on('click', '#users a', this.askCall);
 };
 
 
@@ -85,7 +87,7 @@ ConnectVideo.prototype.getUsersList = function (users) {
 
         // don't display the current user
         if (users[i] != uid) {
-            $('#users').append('<li><a data-user="' + users[i] + '">Call ' + "user "+ i + '</a></li>');
+            $('#users').append('<li><a class="userLink" style="width:20px:height:20px;" data-user="' + users[i] + '">Call ' + "user "+ i + '</a></li>');
         }
     }
 };
@@ -98,7 +100,7 @@ ConnectVideo.prototype.connectPeer = function () {
 
     // connect peer
     peerCoon = new Peer(uid, {
-            host: '192.168.31.58', port: 3000, path: '/peer',
+            host: '172.28.55.80', port: 3000, path: '/peer',
             config: {
                 'iceServers': [
                     {url: 'stun:stun1.l.google.com:19302'},
@@ -132,7 +134,8 @@ ConnectVideo.prototype.askCall = function (e) {
     console.log('call');
 
     // get user to call
-    cid = $(e.currentTarget).data('user');
+   // cid = $(e.currentTarget).data('user');
+    cid = e;
 
     // get our video
     navigator.getUserMedia({audio: true, video: true}, connectVideo.sendCall, connectVideo.gotError);
@@ -154,6 +157,8 @@ ConnectVideo.prototype.receiveCall = function (call) {
     console.log('get call');
 
     if(confirm('someone wants to connect with you') == true) {
+        interactWebCam.stopWebcam(); //stop client's webcam
+
         // call
         peerCall = call;
 
