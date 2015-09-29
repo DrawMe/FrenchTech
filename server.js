@@ -8,23 +8,15 @@ var app = express();
 // peer server
 var peer = require('peer').ExpressPeerServer;
 
-/*******************
- *
- *	VARS
- *
- *******************/
-
+/** VARS **/
 // connected users
 var users = [];
 
-/*******************
- *
- *	HTTP SERVER
- *
- *******************/
 
+/** HTTP SERVER **/
 // http server
 var server = require('http').createServer(app);
+
 
 // static files
 app.use(express.static('static')); //go through this file when connect - typical in express' framework
@@ -37,11 +29,8 @@ app.get('/', function (req, res) { //when we type the address with /, we go dire
 	res.sendfile('index.html');
 });
 
-/*******************
- *
- *	IO
- *
- *******************/
+
+/** IO **/
 
 var io = require('socket.io')(server);
 io.on('connection', function (socket) {
@@ -83,11 +72,8 @@ io.on('connection', function (socket) {
 	});
 });
 
-/*******************
- *
- *	START
- *
- *******************/
+
+/** START **/
 
 server.listen(3000, function(){
 	console.log('start');

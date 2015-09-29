@@ -45,13 +45,14 @@ ConnectVideo.prototype.initSocket = function () {
 
 ConnectVideo.prototype.initEvents = function(){
     /** SENDING CALL **/
-    // listen for click on users list
+    // listen for click on users list to connect
     $('body').on('click', '#users a', this.askCall);
 };
 
 
 ConnectVideo.prototype.socketReady = function () {
     console.log('socket ready');
+
     // listen socket
     socket.on('getUserId', connectVideo.getUserId);
     socket.on('getUsersList', connectVideo.getUsersList);
@@ -82,9 +83,9 @@ ConnectVideo.prototype.getUsersList = function (users) {
     var i = 0;
     for (i; i < users.length; i++) {
 
-        // don't display the current user (hein)
+        // don't display the current user
         if (users[i] != uid) {
-            $('#users').append('<li><a data-user="' + users[i] + '">Call ' + users[i] + '</a></li>');
+            $('#users').append('<li><a data-user="' + users[i] + '">Call ' + "user "+ i + '</a></li>');
         }
     }
 };
@@ -97,7 +98,7 @@ ConnectVideo.prototype.connectPeer = function () {
 
     // connect peer
     peerCoon = new Peer(uid, {
-            host: '192.168.0.44', port: 3000, path: '/peer',
+            host: '192.168.31.58', port: 3000, path: '/peer',
             config: {
                 'iceServers': [
                     {url: 'stun:stun1.l.google.com:19302'},
@@ -118,6 +119,7 @@ ConnectVideo.prototype.connectPeer = function () {
 ConnectVideo.prototype.peerReady = function (peerId) {
 
     console.log('peer ready');
+    $("#state").text("Connected to peer server");
 
     // ok peer connection is ready - now get user list
     socket.emit('getUsersList');
@@ -149,17 +151,18 @@ ConnectVideo.prototype.sendCall = function (stream) {
 
 /** GETTING CALL **/
 ConnectVideo.prototype.receiveCall = function (call) {
-
     console.log('get call');
 
-    // call
-    peerCall = call;
+    if(confirm('someone wants to connect with you') == true) {
+        // call
+        peerCall = call;
 
-    // listen call for stream
-    peerCall.on('stream', connectVideo.receiveStream);
+        // listen call for stream
+        peerCall.on('stream', connectVideo.receiveStream);
 
-    // get our micro stream
-    navigator.getUserMedia({audio: true, video: true}, connectVideo.answerCall, connectVideo.gotError);
+        // get our micro stream
+        navigator.getUserMedia({audio: true, video: true}, connectVideo.answerCall, connectVideo.gotError);
+    }
 };
 
 // answer call
