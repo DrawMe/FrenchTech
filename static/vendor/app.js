@@ -19,7 +19,7 @@ var InteractWebCam = function() {
 			that.content.height(w / ratio);
 		} else {
 			that.content.height(h);
-			that.content.width(h * ratio);
+			//that.content.width(h * ratio);
 			that.content.width(w);
 		}
 		that.canvases.width(that.content.width());
@@ -39,6 +39,9 @@ var InteractWebCam = function() {
 		navigator.getUserMedia({audio: true, video: true}, function (stream) {
 			var url = window.URL || window.webkitURL;
 			that.video1.src = url ? url.createObjectURL(stream) : stream;
+            console.log('STREAM');
+            localStream = stream;
+
             that.initialize();
 		}, webcamError);
 	} else {
