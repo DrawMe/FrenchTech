@@ -7,79 +7,98 @@
 		<script src="vendor/peer.min.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 
+        <link href='https://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+
+		<link rel="stylesheet" href="css/normalize.css"/>
 		<link rel="stylesheet" href="css/app.css"/>
 		<link rel="stylesheet" href="css/master.css"/>
 	</head>
 	<body>
 
-        <div id="info">
-            <p><strong id="state">Unconnect to peer server</strong></p>
-            <h2>Users</h2>
-            <div id="loading"></div>
-        </div>
+        <ul id="users"></ul>
 
-
-		<div id="content">
+        <div id="content">
 
 			<video id="webcam" autoplay width="640" height="480"></video>
 
 			<canvas id="canvas-source" width="640" height="480"></canvas>
-			<canvas id="canvas-highlights" width="640" height="480"></canvas>
 			<canvas id="canvas-blended" width="640" height="480"></canvas>
 
+            <div id="colorFont">
+                <div id="title">Draw me</div>
+            </div>
+
+
 			<div id="hotSpots">
-				<ul id="users" style="width:20px;height:20px"></ul>
+                <div id="circleLoading"></div>
 			</div>
 		</div>
+
+
+
 	</body>
 
 	<script src="js/client.js"></script>
 
 	<script src="vendor/app.js"></script>
+	<script src="vendor/circle-progress.js"></script>
+	<script src="js/circleLoading.js"></script>
+
 <script>
 	var localStream;
 	var userIdVideo;
 
     var i = 0;
+    var maxLoad = 50;
+    var interval = 1/maxLoad;
+    var progressLoad = 0;
+
     var timeout;
 	(function(){
-		// consider using a debounce utility if you get too many consecutive events
-		$(window).on('motion', function(ev, data){
+		// For debug
+		/*$(window).on('motion', function(ev, data){
 			//console.log('detected motion at', new Date(), 'with data:', data);
 			var spot = $(data.spot.el);
 			spot.addClass('active');
 			setTimeout(function(){
 				spot.removeClass('active');
 			}, 230);
-		});
+		});*/
 
-		$('#users').on('motion', function(){
+		$('#circleLoading').on('motion', function(){
 			//alert($(".userLink").attr("data-user"));
             i++;
 
             $("#loading").text(i);
+            progressLoad += interval;
+            circleLoad.circleProgress('value', progressLoad);
 
-            fireButton();
+            fireConnectButton();
 		});
 
         //if the button is fired a certain time, we hit the appropriate action
-        function fireButton(){
+        function fireConnectButton(){
             clearTimeout(timeout);
-            if(i>=50){
+            if(i >= maxLoad){
+                i = 0;
+
                 //launch action
                 interactWebCam.stopWebcam();
-                i = 0;
+
                 //connectVideo.askCall($(".userLink").attr("data-user"));
                 connectVideo.connectUser($(".userLink").attr("data-user"));
+
+                $("#hotSpots").css({'display': 'none'});
+                $("#colorFont").css({'display': 'none'});
             }
             else {
                 timeout = setTimeout(function () {
                     i = 0;
-                    $("#loading").text(i);
+                    progressLoad = 0;
+                    circleLoad.circleProgress('value', progressLoad);
                 }, 500);
             }
         }
-
 	})();
 </script>
 

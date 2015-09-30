@@ -1,9 +1,7 @@
 var hotSpots = [];
 var InteractWebCam = function() {
     var that = this;
-	// config start
-	this.OUTLINES = false;
-	// config end
+
 
 	this.content = $('#content');
 	this.video1 = $('#webcam')[0];
@@ -16,7 +14,7 @@ var InteractWebCam = function() {
 
 		if (that.content.width() > w) {
 			that.content.width(w);
-			that.content.height(w / ratio);
+			//that.content.height(w / ratio);
 		} else {
 			that.content.height(h);
 			//that.content.width(h * ratio);
@@ -36,7 +34,7 @@ var InteractWebCam = function() {
 	};
 
 	if (navigator.getUserMedia) {
-		navigator.getUserMedia({audio: true, video: true}, function (stream) {
+		navigator.getUserMedia({audio: false, video: true}, function (stream) {
 			var url = window.URL || window.webkitURL;
 			that.video1.src = url ? url.createObjectURL(stream) : stream;
             console.log('STREAM');
@@ -87,7 +85,6 @@ InteractWebCam.prototype.start = function() {
     $('#hotSpots').fadeIn();
     $(this.canvasSource).delay(600).fadeIn();
     $(this.canvasBlended).delay(600).fadeIn();
-    $('#canvas-highlights').delay(600).fadeIn();
     $(window).trigger('start');
     interactWebCam.update();
 };
@@ -168,31 +165,18 @@ InteractWebCam.prototype.checkAreas = function() {
 
 InteractWebCam.prototype.getCoords = function() {
     $('#hotSpots').children().each(function (i, el) {
-        var ratio = $("#canvas-highlights").width() / $('video').width();
+        var ratioW = $("#canvas-blended").width() / $('video').width();
+        var ratioH = $("#canvas-blended").height() / $('video').height();
         hotSpots[i] = {
-            x: this.offsetLeft / ratio,
-            y: this.offsetTop / ratio,
-            width: this.scrollWidth / ratio,
-            height: this.scrollHeight / ratio,
+            x: this.offsetLeft / ratioW,
+            y: this.offsetTop / ratioH,
+            width: this.scrollWidth / ratioW,
+            height: this.scrollHeight / ratioH,
             el: el
         };
     });
-    if (this.OUTLINES) interactWebCam.highlightHotSpots();
 };
 
-InteractWebCam.prototype.highlightHotSpots = function() {
-    var that = this;
-
-    this.canvasHighlights = $("#canvas-highlights")[0];
-    this.ctxHighLights = this.canvasHighlights.getContext('2d');
-    this.canvasHighlights.width = this.canvasHighlights.width;
-
-    hotSpots.forEach(function (o, i) {
-        that.ctxHighLights.strokeStyle = 'rgba(0,255,0,0.6)';
-        that.ctxHighLights.lineWidth = 1;
-        that.ctxHighLights.strokeRect(o.x, o.y, o.width, o.height);
-    });
-};
 
 InteractWebCam.prototype.stopWebcam = function(){
     this.video1.pause();
