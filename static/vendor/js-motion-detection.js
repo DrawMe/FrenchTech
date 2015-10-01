@@ -2,13 +2,12 @@ var hotSpots = [];
 var InteractWebCam = function() {
     var that = this;
 
-
 	this.content = $('#content');
 	this.video1 = $('#webcam')[0];
 	this.canvases = $('canvas');
 
 	var resize = function () {
-		var ratio = that.video1.width / that.video1.height;
+		//var ratio = that.video1.width / that.video1.height;
 		var w = $('body').width();
 		var h = $('body').height();
 
@@ -164,6 +163,7 @@ InteractWebCam.prototype.checkAreas = function() {
 };
 
 InteractWebCam.prototype.getCoords = function() {
+
     $('#hotSpots').children().each(function (i, el) {
         var ratioW = $("#canvas-blended").width() / $('video').width();
         var ratioH = $("#canvas-blended").height() / $('video').height();
