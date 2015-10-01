@@ -261,11 +261,11 @@
         content.height(h);
         content.width(w);
       }
-      canvasContainer.width(content.width()); //todo canvas width is not a function
-      canvasContainer.height(content.height());
-
-        canvasContainer2.width(content.width()); //todo canvas width is not a function
-      canvasContainer2.height(content.height());
+        canvasContainer.width(content.width());
+        canvasContainer.height(content.height());
+        
+        canvasContainer2.width(content.width());
+        canvasContainer2.height(content.height());
     };
     resizeCanvas_();
     element.addEventListener('resize', resizeCanvas_);
