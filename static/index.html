@@ -19,6 +19,8 @@
 
         <div id="content">
 
+            <video id="video" width="640" height="480" preload autoplay loop muted></video>
+            <canvas id="canvas" width="640" height="480"></canvas>
 			<video id="webcam" autoplay width="640" height="480"></video>
 
 			<canvas id="canvas-source" width="640" height="480"></canvas>
@@ -45,8 +47,6 @@
 
             <!----------------->
 
-           <!-- <video id="video" width="640" height="480" preload autoplay loop muted></video>-->
-            <canvas id="canvas" width="640" height="480"></canvas>
             <canvas id="canvas2" width="640" height="480"></canvas>
 
             <div id="colors">
@@ -109,7 +109,7 @@
 
         //Initialize colors tracking
         var tracker = new tracking.ColorTracker(['cyan', 'red']);
-        tracking.track('#webcam', tracker, {camera: true});
+        tracking.track('#video', tracker, {camera: true});
 
         //Manage color detection
         tracker.on('track', function (event) {
