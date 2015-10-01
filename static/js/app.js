@@ -12,7 +12,7 @@ var flkty = new Flickity( elem, {
 
 /** VARS **/
 
-var localStream;
+
 
 var i = 0;
 var maxConnectLoad = 50;
@@ -157,6 +157,7 @@ function fireConnectButton(){
 
         $("#hotSpots").css({'display': 'none'});
         $("#colorFont").css({'display': 'none'});
+        interactWebCam.emptyHotSpot();
     }
     else {
         timeoutConnect = setTimeout(function () {

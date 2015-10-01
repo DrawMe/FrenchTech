@@ -15,6 +15,12 @@
 #canvas-source {
     width: 100%;
 }
+#canvas, #canvas2{
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
 
 #canvas-source, #canvas-highlights {
     display: none;

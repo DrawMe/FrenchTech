@@ -1,4 +1,5 @@
 var hotSpots = [];
+
 var InteractWebCam = function() {
     var that = this;
 
@@ -177,6 +178,9 @@ InteractWebCam.prototype.getCoords = function() {
     });
 };
 
+InteractWebCam.prototype.emptyHotSpot = function(){
+    hotSpots = [];
+};
 
 InteractWebCam.prototype.stopWebcam = function(){
     this.video1.pause();
@@ -184,9 +188,6 @@ InteractWebCam.prototype.stopWebcam = function(){
 
     this.contextSource.clearRect(0, 0, this.canvasSource.width, this.canvasSource.height);
     this.contextBlended.clearRect(0, 0, this.canvasBlended.width, this.canvasBlended.height);
-
-    $("#canvas-source").addClass('hidden');
-    $("#canvas-blended").addClass('hidden');
 
 };
 
