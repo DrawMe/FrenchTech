@@ -1,5 +1,6 @@
 var hotSpots = [];
 var isInteracted = true;
+var localStream;
 
 var InteractWebCam = function() {
     var that = this;
