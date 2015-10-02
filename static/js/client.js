@@ -106,7 +106,7 @@ ConnectVideo.prototype.connectPeer = function () {
 
     // connect peer
     peerCoon = new Peer(uid, {
-            host: '192.168.0.44', port: 3000, path: '/peer',
+            host: '172.28.55.80', port: 3000, path: '/peer',
             config: {
                 'iceServers': [
                     {url: 'stun:stun1.l.google.com:19302'},
@@ -163,23 +163,9 @@ ConnectVideo.prototype.sendCall = function (stream) {
 ConnectVideo.prototype.receiveCall = function (call) {
     console.log('get call');
 
-    alert("someone wants to connect with you, continue to play");
-
+    $(".information").removeClass('hide');
 
     userCall = call;
-
-  /*  if(confirm('someone wants to connect with you') == true) {
-        interactWebCam.stopWebcam(); //stop client's webcam
-
-        // call
-        peerCall = call;
-
-        // listen call for stream
-        peerCall.on('stream', connectVideo.receiveStream);
-
-        // get our micro stream
-        navigator.getUserMedia({audio: true, video: true}, connectVideo.answerCall, connectVideo.gotError);
-    }*/
 };
 
 
@@ -218,6 +204,11 @@ ConnectVideo.prototype.answerCall = function (stream) {
 
     // answering to the call - sending our micro stream
     peerCall.answer(stream);
+
+    //load the drawings
+    setTimeout(function () {
+        loadColorDrawing();
+    }, 500);
 };
 
 /** GET STREAM **/
@@ -227,12 +218,9 @@ ConnectVideo.prototype.receiveStream = function (stream) {
     console.log('reveive stream', stream);
 
     // push the stream to video
-  //  video.src = window.URL.createObjectURL(stream);
     video.src = window.URL.createObjectURL(stream);
-   // $('#video').width($('body').width());
-    //$('#video').height($('body').height());
 
-    //loadColorDrawing();
+    $("#colorFont").addClass('hide');
 };
 
 /** UTILS **/
@@ -240,7 +228,6 @@ ConnectVideo.prototype.receiveStream = function (stream) {
 ConnectVideo.prototype.gotError = function (err) {
     console.log(err);
 };
-
 
 
 var connectVideo = new ConnectVideo();

@@ -21,7 +21,7 @@ var server = require('http').createServer(app);
 app.use(express.static('static')); //go through this file when connect - typical in express' framework
 
 // peer
-app.use('/peer', peer(server, {debug: true})); //when we call the peer route, we call peer(server..
+app.use('/peer', peer(server, {debug: false})); //when we call the peer route, we call peer(server..
 
 // routing
 app.get('/', function (req, res) { //when we type the address with /, we go directly on index.html
@@ -41,13 +41,14 @@ io.on('connection', function (socket) {
 
 	// get user id
 	socket.on('getUserId', function(){
+		console.log('getUserId');
 		// return user id (only to user)
 		socket.emit('getUserId', socket.user.id);
 	});
 
 	// get users list
 	socket.on('getUsersList', function(){
-
+		console.log('getUsersList');
 		// if we ask for user list, it means we are connected to peer
 		users.push(socket.user.id);
 
@@ -58,6 +59,7 @@ io.on('connection', function (socket) {
 
 	// get usersToConnect list
 	socket.on('getUsersToConnectList', function(usersToConnect){
+		console.log('getUsersToConnectList');
 		// emit usersToConnect list to everybody
 		io.emit('getUsersToConnectList', usersToConnect);
 	});

@@ -91,6 +91,10 @@ function fireLeftSlide(){
         flkty.select(parseInt(sliderIndex));
         loadLeft = 0;
         goToLeftSlide.circleProgress('value', loadLeft);
+
+        if($("#circleConnection").length){
+            removeCircleConnect();
+        }
     }
     else {
         timeoutLeft = setTimeout(function () {
@@ -110,10 +114,11 @@ function fireRightSlide(){
         loadRight = 0;
         goToRightSlide.circleProgress('value', loadRight);
 
-        //insert the circleConnect on the hotSpots div
-        $("#hotSpots").append('<div id="circleConnection"></div>');
-        loadCircleConnect();
-
+        if(sliderIndex == maxSliderIndex){
+            //insert the circleConnect on the hotSpots div
+            $("#hotSpots").append('<div id="circleConnection"></div>');
+            loadCircleConnect();
+        }
     }
     else {
         timeoutRight = setTimeout(function () {
@@ -143,6 +148,10 @@ function loadCircleConnect(){
     });
 }
 
+function removeCircleConnect(){
+    $("#circleConnection").remove();
+    interactWebCam.getCoords();
+}
 
 //if the button is fired a certain time, we hit the appropriate action
 function fireConnectButton(){
@@ -150,13 +159,12 @@ function fireConnectButton(){
     if(i >= maxConnectLoad){
         i = 0;
         //launch action
-        interactWebCam.stopWebcam();
+        interactWebCam.removeDetection();
 
-        //connectVideo.askCall($(".userLink").attr("data-user"));
         connectVideo.connectUser($(".userLink").attr("data-user"));
 
         $("#hotSpots").css({'display': 'none'});
-        $("#colorFont").css({'display': 'none'});
+
         interactWebCam.emptyHotSpot();
     }
     else {

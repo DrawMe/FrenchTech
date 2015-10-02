@@ -1,4 +1,5 @@
 var hotSpots = [];
+var isInteracted = true;
 
 var InteractWebCam = function() {
     var that = this;
@@ -91,8 +92,11 @@ InteractWebCam.prototype.start = function() {
 
 InteractWebCam.prototype.update = function() {
     interactWebCam.drawVideo();
-    interactWebCam.blend();
-    interactWebCam.checkAreas();
+
+    if(isInteracted == true) {
+        interactWebCam.blend();
+        interactWebCam.checkAreas();
+    }
     requestAnimFrame(interactWebCam.update);
 };
 
@@ -188,6 +192,28 @@ InteractWebCam.prototype.stopWebcam = function(){
 
     this.contextSource.clearRect(0, 0, this.canvasSource.width, this.canvasSource.height);
     this.contextBlended.clearRect(0, 0, this.canvasBlended.width, this.canvasBlended.height);
+
+    var canvasBlended = document.getElementById("canvas-blended");
+    if(canvasBlended){
+        canvasBlended.parentNode.removeChild(canvasBlended);
+    }
+
+  //  $("#colorFont").addClass('hide');
+
+};
+
+InteractWebCam.prototype.removeDetection = function(){
+    this.contextSource.clearRect(0, 0, this.canvasSource.width, this.canvasSource.height);
+    this.contextBlended.clearRect(0, 0, this.canvasBlended.width, this.canvasBlended.height);
+
+    var canvasBlended = document.getElementById("canvas-blended");
+    if(canvasBlended){
+        canvasBlended.parentNode.removeChild(canvasBlended);
+    }
+
+    isInteracted = false; //stop the interaction update
+
+    $(".presentation-gallery").addClass('hide');
 
 };
 

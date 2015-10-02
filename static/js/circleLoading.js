@@ -19,7 +19,7 @@ goToRightSlide.circleProgress({
 });
 
 function createCircleConnect (){
-     circleConnect = $('#circleConnection');
+    circleConnect = $('#circleConnection');
 
     circleConnect.circleProgress({
         startAngle: -Math.PI / 4 * 3,

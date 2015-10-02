@@ -152,7 +152,6 @@
       case 'img':
         return this.trackImg_(element, tracker, opt_options);
       case 'video':
-          alert("video");
         if (opt_options) {
           if (opt_options.camera) {
             this.initUserMedia_(element, opt_options);
@@ -242,7 +241,6 @@
   tracking.trackVideo_ = function(element, tracker) {
    // var canvas = document.createElement('canvas');
     var canvasContainer = $("#canvas");
-    var canvasContainer2 = $("#canvas");
     var context = canvasContainer[0].getContext('2d');
     var width;
     var height;
@@ -263,9 +261,7 @@
       }
         canvasContainer.width(content.width());
         canvasContainer.height(content.height());
-        
-        canvasContainer2.width(content.width());
-        canvasContainer2.height(content.height());
+
     };
     resizeCanvas_();
     element.addEventListener('resize', resizeCanvas_);

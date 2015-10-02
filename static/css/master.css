@@ -18,10 +18,20 @@ html, body{
     font-weight: 700;
 }
 
+.information{
+    text-align: center;
+    margin-top: 40px;
+    font-size: 20px
+}
+
 #video{
     position: absolute;
     top: 0;
     left: 0;
+}
+
+.hide{
+    display: none;
 }
 
 /*---------------------*/
