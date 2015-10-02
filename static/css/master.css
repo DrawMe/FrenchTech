@@ -84,7 +84,37 @@ html, body{
     position: absolute;
     top: 0;
     left: 0;
+    position: relative;
+    background: #FFF;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: solid 2px #FFF;
+    padding: 26px 11px;
+    color: #70242f;
+    font-size: 1.5em;
+    text-transform: uppercase;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 800;
+    text-transform: uppercase;
+    line-height: 1.1em;
+    width: 200px;
 }
+
+#generationTheme:after {
+    z-index: 3;
+    content: "";
+    display: block;
+    width: 0;
+    height: 0;
+    border-left: 25px solid transparent;
+    border-right: 25px solid transparent;
+    border-top: 25px solid #FFF;
+    position: absolute;
+    bottom: -25px;
+    left: 50%;
+    margin-left: -25px;
+}
+
 #result{
     margin-top: 50px;
     margin-left: 50px;
