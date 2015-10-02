@@ -158,10 +158,11 @@ html, body{
     bottom: 0;
     left: 0;
     right: 0;
-    width: 300px;
+    width: 70%;
     height: 300px;
     margin: auto;
     position: absolute;
+    box-shadow: 15px 15px #ee1e3e;
 }
 
 .gallery-cell{
