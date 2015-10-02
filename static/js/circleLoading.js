@@ -7,7 +7,7 @@ goToLeftSlide.circleProgress({
     value: 0,
     lineCap: 'round',
     animation: false,
-    fill: { gradient: ['#E2407B', '#C11047'] }
+    fill: { gradient: ['#FFFFFF', '#cfcfcf'] }
 });
 
 goToRightSlide.circleProgress({
@@ -15,7 +15,7 @@ goToRightSlide.circleProgress({
     value: 0,
     lineCap: 'round',
     animation: false,
-    fill: { gradient: ['#E2407B', '#C11047'] }
+    fill: { gradient: ['#FFFFFF', '#cfcfcf'] }
 });
 
 function createCircleConnect (){
