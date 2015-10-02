@@ -28,8 +28,10 @@
 
 
             <div id="colorFont">
-                <h1 id="title">Draw me</h1>
-				<h2 class="subtitle">Faites vous tirer le portrait</h2>
+                <div class="header">
+                    <h1 id="title">Draw me</h1>
+			    	<h2 class="subtitle">Faites vous tirer le portrait</h2>
+                </div>
                 <div class="information hide">Someone wants to connect with you - Go to the last slide and connect you too</div>
             </div>
 
@@ -88,7 +90,7 @@
 
             <canvas id="canvas2" width="640" height="480"></canvas>
 
-            <div id="colors">
+            <div id="colors" class="hide">
                 <div class="btn" style="background-color: #ff0000" ></div>
                 <div class="btn" style="background-color: #00ff00"></div>
             </div>
@@ -96,7 +98,15 @@
             <!--Used to give a name theme or a position to respect to the users -->
 			<div id="generationTheme">
                 <div id="result"></div>
+                <div id="callerExplication" class="hide">
+                    Tu es le mec qui doit faire la pose, bouge toi !
+                </div>
+                <div id="calledExplication" class="hide">
+                    Tu es le mec qui dessines, dépêches-toi !
+                </div>
             </div>
+
+            <div id="timer"></div>
 
 		</div>
 

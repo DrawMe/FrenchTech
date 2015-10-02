@@ -18,6 +18,8 @@ var usersToConnect = [];
 var caller = "";
 var called = "";
 
+var timeTimer = 6;
+
 var ConnectVideo = function () {
     // Cross broswer shit for getUserMedia
     navigator.getUserMedia = ( navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
@@ -200,6 +202,8 @@ ConnectVideo.prototype.connectUser = function(userId){
         // get our micro stream
        // navigator.getUserMedia({audio: true, video: true}, connectVideo.answerCall, connectVideo.gotError);
         connectVideo.answerCall(localStream);
+
+        $(".information").addClass('hide');
     }
 
 };
@@ -212,21 +216,14 @@ ConnectVideo.prototype.answerCall = function (stream) {
     // answering to the call - sending our micro stream
     peerCall.answer(stream);
 
-
-    var i = 5;
-    var timer = setInterval(function (){
-        console.log("timer"+i+" s");
-        i--;
-        if(i == 0){
-            that.loadThemeDrawing();
-            clearInterval(timer);
-        }
-    }, 1000);
+    var endTime = timeTimer*1000;
+    setTimeout(function (){
+        that.loadDrawing();
+    }, endTime);
 };
 
 
-ConnectVideo.prototype.loadThemeDrawing = function(){
-
+ConnectVideo.prototype.loadDrawing = function(){
     //load the drawings
     setTimeout(function () {
         loadColorDrawing();
@@ -243,7 +240,7 @@ ConnectVideo.prototype.receiveStream = function (stream) {
     // push the stream to video
     video.src = window.URL.createObjectURL(stream);
 
-    $("#colorFont").addClass('hide');
+    //$("#colorFont").addClass('hide');
     connectVideo.loadThemeForUser();
 };
 
@@ -254,18 +251,44 @@ ConnectVideo.prototype.loadThemeForUser = function (userId) {
     console.log("caller: "+caller);
     console.log("called: "+called);
 
+    var $callerExplication = $('#callerExplication');
+    var $calledExplication = $('#calledExplication');
+    var $timerText = $("#timer");
+
+    $(".header").addClass('hide');
+
     if(caller != ""){
         console.log("this is the caller");
         var theme = randomWord(dataTheme, false);
+        $callerExplication.removeClass('hide');
     }
     else{
         console.log("this is the called");
         var theme = randomWord(dataTheme, true);
+        $calledExplication.removeClass('hide');
     }
-
     $("#result").append(theme);
 
+    var i = timeTimer;
+    var timer = setInterval(function (){
+        i--;
+        console.log("timer"+i+" s");
+        $timerText.html(i);
+        if(i == 0){
+            $("#colorFont").addClass('hide');
+            if(!$callerExplication.hasClass('hide')){
+                $callerExplication.addClass('hide');
+            }
+            if(!$calledExplication.hasClass('hide')){
+                $calledExplication.addClass('hide');
+            }
+            $timerText.addClass('hide');
+            $("#colors").removeClass('hide');
+            clearInterval(timer);
+        }
+    }, 1000);
 };
+
 
 
 /** UTILS **/
