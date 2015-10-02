@@ -283,6 +283,7 @@ ConnectVideo.prototype.loadThemeForUser = function (userId) {
                 $calledExplication.addClass('hide');
             }
             $timerText.addClass('hide');
+            $timerText.html('');
             $("#colors").removeClass('hide');
             clearInterval(timer);
         }

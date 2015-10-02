@@ -67,6 +67,14 @@
 
             <div id="timer"></div>
 
+            <div id="generatePicture">
+                <div id="generateQrCode">Generer QR Code</div>
+                <div id="imgPreview">
+                    <a href=" " download></a>
+                </div>
+                <div id="qrcode"></div>
+            </div>
+
 		</div>
 
 	</body>
@@ -77,6 +85,7 @@
 	<script src="vendor/circle-progress.js"></script>
 	<script src="vendor/flickity-1.1.1.js"></script>
 	<script src="vendor/tracking.js"></script>
+	<script src="vendor/qrcode.js"></script>
 
 	<script src="js/trackColors.js"></script>
 	<script src="js/circleLoading.js"></script>
@@ -84,6 +93,94 @@
 
 	<script src="js/app.js"></script>
 
+<script>
 
+    function generatePicture() {
+        var webcam = document.getElementById('webcam');
+        var el = document.getElementById('canvas2');
+
+        var urlQrCode;
+
+        /************************************************/
+        /* GENERATE PICTURE
+         /************************************************/
+
+        //Capture video fram
+        function capture(webcam) {
+            var w = webcam.videoWidth;
+            var h = webcam.videoHeight;
+
+            contextDrawing.drawImage(webcam, 0, 0, w, h);
+        }
+
+        //Generate and display picture in an preview block
+        function savePhoto() {
+
+            var drawingCapture = el.toDataURL("image/png");
+            var drawingImg = new Image();
+
+            drawingImg.src = drawingCapture;
+
+
+            var w = webcam.videoWidth;
+            var h = webcam.videoHeight;
+
+            capture(webcam);
+
+            contextDrawing.drawImage(drawingImg, 0, 0, w, h);
+
+
+
+            var img = el.toDataURL("image/png");
+            var myImg = new Image();
+            myImg.src = img;
+
+
+            document.getElementById('imgPreview').appendChild(myImg);
+
+            urlQrCode = img;
+
+            contextDrawing.clearRect(0, 0, el.width, el.height);
+
+            //uploadFile();
+            //makeCode();
+        }
+
+        /************************************************/
+        /* GENERATE QR CODE
+         /************************************************/
+
+        function makeCode() {
+            urlQrCode = "https://drive.google.com/open?id=0BwuKpMFwQsC2UDZrSUxMUW0zSVE";
+            new QRCode(document.getElementById("qrcode"), urlQrCode);
+
+            //TODO : converts link base 64 to Uri
+        }
+
+
+        function uploadFile(){
+
+            $.ajax({
+                url: "http://michaelgenty.com/uploadDrawMe.php",
+                type: "post",
+                dataType: 'json',
+                processData: false,
+                contentType: false,
+                data: {file: $("#imagePreview img").attr('src')},
+                success: function(text) {
+                    if(text == "success") {
+                        alert("Your image was uploaded successfully");
+                    }
+                },
+                error: function() {
+                    alert("An error occured, please try again.");
+                }
+            });
+        }
+
+
+        savePhoto();
+    }
+</script>
 
 </html>

@@ -1,11 +1,16 @@
 /**COLOR TRACKING**/
+var contextDrawing;
 function loadColorDrawing() {
 
-    var canvas = document.getElementById('canvas2');
-    var context = canvas.getContext('2d');
+    //the maximum time before the drawing ends
+    var timeDrawing = 5;
 
-    context.lineWidth = 1;
-    context.lineJoin = context.lineCap = 'round';
+
+    var canvas = document.getElementById('canvas2');
+    contextDrawing = canvas.getContext('2d');
+
+    contextDrawing.lineWidth = 1;
+    contextDrawing.lineJoin = contextDrawing.lineCap = 'round';
 
     var isDrawing, points = [];
     var tempX, tempY, cursorX, cursorY;
@@ -81,10 +86,10 @@ function loadColorDrawing() {
         cursorY = rect.y + rect.height / 2;
         points.push({x: cursorX, y: cursorY});
 
-        context.beginPath();
-        context.moveTo(points[points.length - 2].x, points[points.length - 2].y);
-        context.lineTo(points[points.length - 1].x, points[points.length - 1].y);
-        context.stroke();
+        contextDrawing.beginPath();
+        contextDrawing.moveTo(points[points.length - 2].x, points[points.length - 2].y);
+        contextDrawing.lineTo(points[points.length - 1].x, points[points.length - 1].y);
+        contextDrawing.stroke();
 
         for (var i = 0, len = points.length; i < len; i++) {
             dx = points[i].x - points[points.length - 1].x;
@@ -92,11 +97,11 @@ function loadColorDrawing() {
             d = dx * dx + dy * dy;
 
             if (d < 1000) {
-                context.beginPath();
-                context.strokeStyle = colorLine;
-                context.moveTo(points[points.length - 1].x + (dx * 0.1), points[points.length - 1].y + (dy * 0.1));
-                context.lineTo(points[i].x - (dx * 0.1), points[i].y - (dy * 0.1));
-                context.stroke();
+                contextDrawing.beginPath();
+                contextDrawing.strokeStyle = colorLine;
+                contextDrawing.moveTo(points[points.length - 1].x + (dx * 0.1), points[points.length - 1].y + (dy * 0.1));
+                contextDrawing.lineTo(points[i].x - (dx * 0.1), points[i].y - (dy * 0.1));
+                contextDrawing.stroke();
             }
         }
     };
@@ -109,7 +114,7 @@ function loadColorDrawing() {
 
     // Erase drawing
     function erase(rect) {
-        context.clearRect(rect.x, rect.y, rect.width, rect.height);
+        contextDrawing.clearRect(rect.x, rect.y, rect.width, rect.height);
     }
 
     // Check if item selected
@@ -144,5 +149,31 @@ function loadColorDrawing() {
         colorLine = color.replace(/rgb/i, "rgba");
         colorLine = colorLine.replace(/\)/i, ',0.3)');
     }
+
+
+    function timerForEndDrawing() {
+        var $timerText = $("#timer");
+
+        $timerText.removeClass('hide');
+
+        var i = timeDrawing;
+        var timer = setInterval(function () {
+            i--;
+            console.log("timer" + i + " s");
+            $timerText.html(i);
+            if (i == 0) {
+                //alert("this is the end of the drawing");
+
+                $timerText.html('');
+                $timerText.addClass('hide');
+
+                generatePicture();
+                clearInterval(timer);
+            }
+        }, 1000);
+    }
+
+
+    timerForEndDrawing();
 
 }
