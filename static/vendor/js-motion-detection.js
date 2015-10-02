@@ -199,8 +199,6 @@ InteractWebCam.prototype.stopWebcam = function(){
         canvasBlended.parentNode.removeChild(canvasBlended);
     }
 
-  //  $("#colorFont").addClass('hide');
-
 };
 
 InteractWebCam.prototype.removeDetection = function(){

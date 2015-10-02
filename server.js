@@ -56,7 +56,6 @@ io.on('connection', function (socket) {
 		io.emit('getUsersList', users);
 	});
 
-
 	// get usersToConnect list
 	socket.on('getUsersToConnectList', function(usersToConnect){
 		console.log('getUsersToConnectList');
@@ -66,7 +65,6 @@ io.on('connection', function (socket) {
 
 	// disconnect
 	socket.on('disconnect', function(){
-
 		// remove user from list
 		var i = 0;
 		for(i; i < users.length; i++){
