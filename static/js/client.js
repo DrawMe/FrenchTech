@@ -14,6 +14,10 @@ var userCall;
 
 var usersToConnect = [];
 
+
+var caller = "";
+var called = "";
+
 var ConnectVideo = function () {
     // Cross broswer shit for getUserMedia
     navigator.getUserMedia = ( navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
@@ -177,11 +181,14 @@ ConnectVideo.prototype.connectUser = function(userId){
 
 
     if(usersToConnect.length < 1) {
+        caller = userId;
         usersToConnect.push(userId);
         connectVideo.askCall(userId);
         socket.emit('getUsersToConnectList', usersToConnect);
     }
     else if(usersToConnect.length == 1){
+        called = userId;
+
         interactWebCam.stopWebcam(); //stop client's webcam
 
         // call
@@ -199,17 +206,33 @@ ConnectVideo.prototype.connectUser = function(userId){
 
 // answer call
 ConnectVideo.prototype.answerCall = function (stream) {
-
+    var that = this;
     console.log('answer call');
 
     // answering to the call - sending our micro stream
     peerCall.answer(stream);
+
+
+    var i = 5;
+    var timer = setInterval(function (){
+        console.log("timer"+i+" s");
+        i--;
+        if(i == 0){
+            that.loadThemeDrawing();
+            clearInterval(timer);
+        }
+    }, 1000);
+};
+
+
+ConnectVideo.prototype.loadThemeDrawing = function(){
 
     //load the drawings
     setTimeout(function () {
         loadColorDrawing();
     }, 500);
 };
+
 
 /** GET STREAM **/
     // receive stream
@@ -221,7 +244,29 @@ ConnectVideo.prototype.receiveStream = function (stream) {
     video.src = window.URL.createObjectURL(stream);
 
     $("#colorFont").addClass('hide');
+    connectVideo.loadThemeForUser();
 };
+
+
+ConnectVideo.prototype.loadThemeForUser = function (userId) {
+    console.log("loadThemeForUser");
+    console.log("userId : "+userId);
+    console.log("caller: "+caller);
+    console.log("called: "+called);
+
+    if(caller != ""){
+        console.log("this is the caller");
+        var theme = randomWord(dataTheme, false);
+    }
+    else{
+        console.log("this is the called");
+        var theme = randomWord(dataTheme, true);
+    }
+
+    $("#result").append(theme);
+
+};
+
 
 /** UTILS **/
     // got error

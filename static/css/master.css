@@ -34,6 +34,16 @@ html, body{
     display: none;
 }
 
+#generationTheme{
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+#result{
+    margin-top: 50px;
+    margin-left: 50px;
+}
+
 /*---------------------*/
 /*---LOADING CIRCLES---*/
 /*---------------------*/
