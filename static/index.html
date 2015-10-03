@@ -3,7 +3,7 @@
 	<head lang="en">
 		<meta charset="UTF-8">
 		<title>Web RTC</title>
-		<script src="http://172.28.55.80:3000/socket.io/socket.io.js"></script>
+		<script src="http://192.168.0.13:3000/socket.io/socket.io.js"></script>
 		<script src="vendor/peer.min.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 
@@ -32,8 +32,15 @@
                     <h1 id="title">Draw me</h1>
 			    	<h2 class="subtitle">Faites vous tirer le portrait</h2>
                 </div>
-                <div class="information hide">Someone wants to connect with you - Go to the last slide and connect you too</div>
-            </div>
+				<div class="information called notificationBox hide">
+					<div class="notificationTitle">Connectez-vous</div>
+					<div class="notificationInfos">Un joueur vous attend. Activez le bouton de connexion en bas de page pour le rejoindre.</div>
+				</div>
+				<div class="information caller notificationBox hide">
+					<div class="notificationTitle">Patientez un moment...</div>
+					<div class="notificationInfos">Nous attendons la connexion d'un autre joueur.</div>
+				</div>
+            </div> 
 
 			<div id="hotSpots">
                 <div id="goToLeftSlide"></div>
@@ -46,42 +53,42 @@
 					<div class="step">
 						<i class="icon-together"></i>
 						<h4 class="step-title">Collaborez</h4>
-						<p>Lorem ipsum dolor es tu</p>
+						<p>d'Annecy à Grenoble</p>
 					</div>
 					<div class="step">
 						<i class="icon-draw"></i>
+						<h4 class="step-title">Créez</h4>
+						<p>Un portrait original</p>
+					</div>
+				</div>
+                <div class="gallery-cell">
+					<h3 class="slide-title">Comment ça marche ?</h3>
+					<div class="step">
+						<i class="icon-"></i>
+						<h4 class="step-title">Dirigez</h4>
+						<p>La lampe est votre curseur</p>
+					</div>
+					<div class="step">
+						<i class="icon-"></i>
 						<h4 class="step-title">Dessinez</h4>
-						<p>Lorem ipsum dolor es tu</p>
+						<p>Allumée, elle devient pinceau</p>
+					</div>
+					<div class="step">
+						<i class="icon-"></i>
+						<h4 class="step-title">Effacez</h4>
+						<p>Utilisé le bloc comme gomme</p>
 					</div>
 				</div>
                 <div class="gallery-cell">
-					<h3 class="slide-title">De quoi s'agit-il ?</h3>
+					<h3 class="slide-title">Comment récupérer le portrait créé ?</h3>
 					<div class="step">
 						<i class="icon-"></i>
-						<h4 class="step-title">Lorem Ipsum</h4>
+						<h4 class="step-title">Flashez</h4>
 						<p>Lorem ipsum dolor es tu</p>
 					</div>
 					<div class="step">
 						<i class="icon-"></i>
-						<h4 class="step-title">Lorem Ipsum</h4>
-						<p>Lorem ipsum dolor es tu</p>
-					</div>
-					<div class="step">
-						<i class="icon-"></i>
-						<h4 class="step-title">Lorem Ipsum</h4>
-						<p>Lorem ipsum dolor es tu</p>
-					</div>
-				</div>
-                <div class="gallery-cell">
-					<h3 class="slide-title">De quoi s'agit-il ?</h3>
-					<div class="step">
-						<i class="icon-"></i>
-						<h4 class="step-title">Lorem Ipsum</h4>
-						<p>Lorem ipsum dolor es tu</p>
-					</div>
-					<div class="step">
-						<i class="icon-"></i>
-						<h4 class="step-title">Lorem Ipsum</h4>
+						<h4 class="step-title">Sauvegardez</h4>
 						<p>Lorem ipsum dolor es tu</p>
 					</div>
 				</div>
@@ -90,26 +97,34 @@
 
             <canvas id="canvas2" width="640" height="480"></canvas>
 
+			<div id="cursor" class="hide" style="top: 0px; right: 0px;"></div>
             <div id="colors" class="hide">
-                <div class="btn" style="background-color: #ff0000" ></div>
-                <div class="btn" style="background-color: #00ff00"></div>
+                <div class="btn" style="background-color: #ED143D" ></div>
+                <div class="btn" style="background-color: #6495ED"></div>
+				<div class="btn" style="background-color: #FFD700" ></div>
+                <div class="btn" style="background-color: #9ACD32"></div>
+				<div class="btn" style="background-color: #000000" ></div>
+                <div class="btn" style="background-color: #ffffff"></div>
             </div>
 
             <!--Used to give a name theme or a position to respect to the users -->
-			<div id="generationTheme">
-                <div id="result"></div>
-                <div id="callerExplication" class="hide">
-                    Tu es le mec qui doit faire la pose, bouge toi !
+			<div id="notificationTimeline" class="hide">
+				<div class="notificationSymbol"></div>
+			</div>
+			<div id="generationTheme" class="notificationBox hide">
+                <div id="callerExplication notificationTitle" class="hide">
+                    Pose à imiter : 
                 </div>
-                <div id="calledExplication" class="hide">
-                    Tu es le mec qui dessines, dépêches-toi !
+                <div id="calledExplication notificationTitle" class="hide">
+                    Mot à dessiner :
                 </div>
+				<div id="result"></div>
             </div>
 
             <div id="timer"></div>
 
             <div id="generatePicture">
-                <div id="generateQrCode">Generer QR Code</div>
+                <div id="generateQrCode" class="hide">Generer QR Code</div>
                 <div id="imgPreview">
                     <a href=" " download></a>
                 </div>

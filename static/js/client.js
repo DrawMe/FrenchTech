@@ -112,7 +112,7 @@ ConnectVideo.prototype.connectPeer = function () {
 
     // connect peer
     peerCoon = new Peer(uid, {
-            host: '172.28.55.80', port: 3000, path: '/peer',
+            host: '192.168.0.13', port: 3000, path: '/peer',
             config: {
                 'iceServers': [
                     {url: 'stun:stun1.l.google.com:19302'},

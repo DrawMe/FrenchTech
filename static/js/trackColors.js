@@ -46,11 +46,14 @@ function loadColorDrawing() {
             if (isDrawing) {
                 endDraw();
             }
+			document.getElementById("cursor").className = "hide";
         }
 
         event.data.forEach(function (rect) {
             isSelected(rect);
+			moveCursor(rect);
             if (rect.color === 'cyan') {
+				document.getElementById("cursor").className = " ";
                 if (!isDrawing) {
                     getPoint(rect);
                 }
@@ -60,6 +63,7 @@ function loadColorDrawing() {
             }
             else if (rect.color === 'red') {
                 erase(rect);
+				document.getElementById("cursor").className = "hide";
                 if (isDrawing) {
                     endDraw();
                 }
@@ -125,7 +129,6 @@ function loadColorDrawing() {
 
         for (var i = 0; i < buttonsInfos.length; i++) {
             var el = buttonsInfos[i];
-            console.log("( " + el.x1 + " <=" + x + "&& " + x + "<=" + el.x2 + " &&" + el.y1 + " <=" + y + " &&" + y + "<= " + el.y2 + " )");
             if (el.x1 <= x && x <= el.x2 && el.y1 <= y && y <= el.y2) {
                 changeColor(el)
             }
@@ -133,6 +136,17 @@ function loadColorDrawing() {
 
     }
 
+	//Move cursor
+	function moveCursor(rect) {
+	  //Center of rect    
+	  var x= rect.x + rect.width / 2;
+	  var y= rect.y + rect.height / 2;
+
+	  document.getElementById("cursor").style.top = y-5+"px";
+	  document.getElementById("cursor").style.right = x-5 +"px";
+	  document.getElementById("cursor").style.backgroundColor = colorLine;
+	}
+	
     function getButton(el) {
         var btn = {
             x1: el.offsetLeft,

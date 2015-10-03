@@ -17,7 +17,7 @@ html, body{
     position: relative;
     line-height: 2em;
     margin: 0;
-    padding-top: 20px;
+    padding-top: 2%;
     text-align: center;
     font-size: 4em;
     font-family: 'Open Sans', sans-serif;
@@ -66,7 +66,6 @@ html, body{
 
 .information{
     text-align: center;
-    margin-top: 40px;
     font-size: 20px
 }
 
@@ -80,44 +79,53 @@ html, body{
     display: none;
 }
 
-#generationTheme{
+#notificationTimeline {
+    display: inline-block;
+    height: 100vh;
+    width: 5px;
     position: absolute;
     top: 0;
-    left: 0;
-    position: relative;
+    left: 45px;
+    background-color: white;
+    z-index: 1;
+}
+
+.notificationSymbol {
+	border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    background-color: white;
+    margin: 5vh 0 5px -12px;
+}
+
+.notificationBox {
+	position: absolute;
     background: #FFF;
-    text-transform: uppercase;
     text-decoration: none;
-    border: solid 2px #FFF;
-    padding: 26px 11px;
     color: #70242f;
-    font-size: 1.5em;
-    text-transform: uppercase;
+    font-size: 1em;
     font-family: 'Open Sans', sans-serif;
-    font-weight: 800;
-    text-transform: uppercase;
     line-height: 1.1em;
-    width: 200px;
+    width: 400px;
+    top: 20px;
+    left: 80px;
+    border-radius: 15px;
+    box-shadow: 5px 5px rgba(112,36,47,0.3);
 }
 
-#generationTheme:after {
-    z-index: 3;
-    content: "";
-    display: block;
-    width: 0;
-    height: 0;
-    border-left: 25px solid transparent;
-    border-right: 25px solid transparent;
-    border-top: 25px solid #FFF;
-    position: absolute;
-    bottom: -25px;
-    left: 50%;
-    margin-left: -25px;
+.notificationTitle {
+	color: white;
+    background-color: #70242f;
+    text-transform: uppercase;
+    font-weight: 800;
+    text-align: center;
+    border-radius: 12px 12px 0 0;
+    padding: 10px 0;
 }
 
-#result{
-    margin-top: 50px;
-    margin-left: 50px;
+#result, .notificationInfos{
+	padding: 15px 10px;
+	text-align: center;
 }
 
 #timer{
@@ -321,11 +329,23 @@ i[class^='icon']:after{
 /*--COLOR TRACKING--*/
 /*------------------*/
 
+#cursor {
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	background-color: white;
+	position: absolute;
+}
+
 #colors {
-    height: 375px;
-    position: relative;
-    width: 500px;
+	height: 100%;
+    position: absolute;
+    width: 50px;
     text-align: center;
+    top: 0;
+    left: 30px;
+	padding-top: 15%;
+	z-index: 99;
 }
 
 .btn {
@@ -334,9 +354,11 @@ i[class^='icon']:after{
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    margin: 50px;
+    margin: 10% 0;
+	border-radius: 50%;
+	border: 5px solid white
 }
-#canvas, #canvas2, #video, #colors {
+#canvas, #canvas2, #video, #colors, #cursor  {
     -moz-transform: scale(-1, 1);
     -o-transform: scale(-1, 1);
     -webkit-transform: scale(-1, 1);
