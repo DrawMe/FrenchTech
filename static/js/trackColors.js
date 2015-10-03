@@ -3,7 +3,7 @@ var contextDrawing;
 function loadColorDrawing() {
 
     //the maximum time before the drawing ends
-    var timeDrawing = 5;
+    var timeDrawing = 25;
 
 
     var canvas = document.getElementById('canvas2');

@@ -18,7 +18,7 @@ var usersToConnect = [];
 var caller = "";
 var called = "";
 
-var timeTimer = 6;
+var timeTimer = 15;
 
 var ConnectVideo = function () {
     // Cross broswer shit for getUserMedia
@@ -112,7 +112,7 @@ ConnectVideo.prototype.connectPeer = function () {
 
     // connect peer
     peerCoon = new Peer(uid, {
-            host: '192.168.0.13', port: 3000, path: '/peer',
+            host: '192.168.0.44', port: 3000, path: '/peer',
             config: {
                 'iceServers': [
                     {url: 'stun:stun1.l.google.com:19302'},
@@ -250,6 +250,7 @@ ConnectVideo.prototype.receiveStream = function (stream) {
 
 
 ConnectVideo.prototype.loadThemeForUser = function (userId) {
+    var that = this;
     console.log("loadThemeForUser");
     console.log("userId : "+userId);
     console.log("caller: "+caller);
@@ -258,6 +259,7 @@ ConnectVideo.prototype.loadThemeForUser = function (userId) {
     var $callerExplication = $('#callerExplication');
     var $calledExplication = $('#calledExplication');
     var $timerText = $("#timer");
+    var $colors = $('#colors');
 
     $(".header").addClass('hide'); 
 	
@@ -267,6 +269,9 @@ ConnectVideo.prototype.loadThemeForUser = function (userId) {
         console.log("this is the caller");
         var theme = randomWord(dataTheme, false);
         $callerExplication.removeClass('hide');
+        if(!$colors.hasClass('hide')) {
+            $colors.addClass('hide');
+        }
     }
     else{
         console.log("this is the called");
@@ -290,10 +295,37 @@ ConnectVideo.prototype.loadThemeForUser = function (userId) {
             $timerText.html('');
             $("#colors").removeClass('hide');
             clearInterval(timer);
+            that.loadTimerForUserWhoDoesntDraws();
         }
     }, 1000);
 };
 
+
+//poop
+ConnectVideo.prototype.loadTimerForUserWhoDoesntDraws = function(){
+    setTimeout(function () {
+        var $timerText = $("#timer");
+        var timeDrawing = 25;
+
+        $timerText.removeClass('hide');
+
+        var i = timeDrawing;
+        var timer = setInterval(function () {
+            i--;
+            console.log("timer" + i + " s");
+            $timerText.html(i);
+            if (i == 0) {
+                //alert("this is the end of the drawing");
+
+                $timerText.html('');
+                $timerText.addClass('hide');
+
+                generatePicture();
+                clearInterval(timer);
+            }
+        }, 1000);
+    }, 600);
+};
 
 
 /** UTILS **/

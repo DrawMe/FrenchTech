@@ -2,8 +2,8 @@
 <html>
 	<head lang="en">
 		<meta charset="UTF-8">
-		<title>Web RTC</title>
-		<script src="http://192.168.0.13:3000/socket.io/socket.io.js"></script>
+		<title>Draw Me</title>
+		<script src="http://192.168.0.44:3000/socket.io/socket.io.js"></script>
 		<script src="vendor/peer.min.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 
@@ -125,7 +125,6 @@
             <div id="timer"></div>
 
             <div id="generatePicture">
-
                 <div id="imgPreview"></div>
                 <div id="qrcode"></div>
             </div>
@@ -172,9 +171,12 @@
         function savePhoto() {
             var $colorFont = $('#colorFont');
             $colorFont.removeClass('hide');
-            $colorFont.css({'background-color': 'rgba(240, 78, 101, 0.8);'});
+            $colorFont.css({'background-color': 'rgba(240, 78, 101, 1)'});
             $('#colors').addClass('hide');
             $('#generationTheme').addClass('hide');
+
+
+            $('.information').addClass('hide');
 
             var drawingCapture = el.toDataURL("image/png");
             var drawingImg = new Image();
@@ -190,7 +192,6 @@
             contextDrawing.drawImage(drawingImg, 0, 0, w, h);
 
 
-
             var img = el.toDataURL("image/png");
             var myImg = new Image();
             myImg.src = img;
@@ -204,6 +205,8 @@
 
             //uploadFile();
             makeCode();
+
+            deleteCanvases();
         }
 
         /************************************************/
@@ -213,10 +216,30 @@
         function makeCode() {
             urlQrCode = "http://michaelgenty.com/DrawMe/img.png";
             new QRCode(document.getElementById("qrcode"), urlQrCode);
-
-            //TODO : converts link base 64 to Uri
         }
 
+        function deleteCanvases(){
+            var canvas = document.getElementById("canvas");
+            var canvas2 = document.getElementById("canvas2");
+            var canvasSource = document.getElementById("canvas-source");
+            var video = document.getElementById("video");
+            var webcam = document.getElementById("webcam");
+            if(canvas){
+                canvas.parentNode.removeChild(canvas);
+            }
+            if(canvas2){
+                canvas2.parentNode.removeChild(canvas2);
+            }
+            if(canvasSource){
+                canvasSource.parentNode.removeChild(canvasSource);
+            }
+            if(video){
+                video.parentNode.removeChild(video);
+            }
+            if(webcam){
+                webcam.parentNode.removeChild(webcam);
+            }
+        }
 
         function uploadFile(){
 
