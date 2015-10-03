@@ -157,6 +157,7 @@ ConnectVideo.prototype.askCall = function (e) {
 // send call
 ConnectVideo.prototype.sendCall = function (stream) {
     console.log('really call');
+	$(".information.caller").removeClass('hide');
 
     // call someone - send our audio stream
     peerCall = peerCoon.call(cid, stream);
@@ -169,7 +170,7 @@ ConnectVideo.prototype.sendCall = function (stream) {
 ConnectVideo.prototype.receiveCall = function (call) {
     console.log('get call');
 
-    $(".information").removeClass('hide');
+    $(".information.called").removeClass('hide');
 
     userCall = call;
 };
