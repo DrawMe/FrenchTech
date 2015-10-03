@@ -138,6 +138,39 @@ html, body{
     filter: FlipH;
 }
 
+#generatePicture {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    left: 0;
+    height: 100%;
+}
+#imgPreview {
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    text-align: center;
+    margin-top: 40px;
+}
+#imgPreview img {
+    width: 400px;
+}
+#qrcode {
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    width: 250px;
+    text-align: center;
+    padding-top: 20px;
+    margin: auto;
+}
+#qrcode img{
+    width: 250px;
+}
+
+
 /*---------------------*/
 /*---LOADING CIRCLES---*/
 /*---------------------*/

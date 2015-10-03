@@ -109,10 +109,7 @@
             <div id="timer"></div>
 
             <div id="generatePicture">
-                <div id="generateQrCode">Generer QR Code</div>
-                <div id="imgPreview">
-                    <a href=" " download></a>
-                </div>
+                <div id="imgPreview"></div>
                 <div id="qrcode"></div>
             </div>
 
@@ -156,6 +153,11 @@
 
         //Generate and display picture in an preview block
         function savePhoto() {
+            var $colorFont = $('#colorFont');
+            $colorFont.removeClass('hide');
+            $colorFont.css({'background-color': 'rgba(240, 78, 101, 0.8);'});
+            $('#colors').addClass('hide');
+            $('#generationTheme').addClass('hide');
 
             var drawingCapture = el.toDataURL("image/png");
             var drawingImg = new Image();
@@ -184,7 +186,7 @@
             contextDrawing.clearRect(0, 0, el.width, el.height);
 
             //uploadFile();
-            //makeCode();
+            makeCode();
         }
 
         /************************************************/
@@ -192,7 +194,7 @@
          /************************************************/
 
         function makeCode() {
-            urlQrCode = "https://drive.google.com/open?id=0BwuKpMFwQsC2UDZrSUxMUW0zSVE";
+            urlQrCode = "http://michaelgenty.com/DrawMe/img.png";
             new QRCode(document.getElementById("qrcode"), urlQrCode);
 
             //TODO : converts link base 64 to Uri
