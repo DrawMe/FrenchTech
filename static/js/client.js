@@ -157,8 +157,9 @@ ConnectVideo.prototype.askCall = function (e) {
 // send call
 ConnectVideo.prototype.sendCall = function (stream) {
     console.log('really call');
-	$(".information.caller").removeClass('hide');
-
+	$("#notificationTimeline, .notificationSymbol, .information.caller").removeClass('hide');
+	$(".notificationSymbol, .information.caller").addClass('animated fadeInUp');
+	
     // call someone - send our audio stream
     peerCall = peerCoon.call(cid, stream);
 
@@ -170,7 +171,8 @@ ConnectVideo.prototype.sendCall = function (stream) {
 ConnectVideo.prototype.receiveCall = function (call) {
     console.log('get call');
 
-    $(".information.called").removeClass('hide');
+    $("#notificationTimeline, .notificationSymbol, .information.called").removeClass('hide');
+	$(".notificationSymbol, .information.called").addClass('animated fadeInUp');
 
     userCall = call;
 };
@@ -204,7 +206,8 @@ ConnectVideo.prototype.connectUser = function(userId){
        // navigator.getUserMedia({audio: true, video: true}, connectVideo.answerCall, connectVideo.gotError);
         connectVideo.answerCall(localStream);
 
-        $(".information").addClass('hide');
+        $(".information, .notificationSymbol").addClass('hide');
+		$(".information, .notificationSymbol").removeClass('animated fadeInUp');
     }
 
 };
@@ -256,8 +259,10 @@ ConnectVideo.prototype.loadThemeForUser = function (userId) {
     var $calledExplication = $('#calledExplication');
     var $timerText = $("#timer");
 
-    $(".header").addClass('hide');
-
+    $(".header").addClass('hide'); 
+	
+	$('.notificationBox, .notificationSymbol').removeClass('hide');
+	$('.notificationBox, .notificationSymbol').addClass('animated fadeInUp');
     if(caller != ""){
         console.log("this is the caller");
         var theme = randomWord(dataTheme, false);
@@ -277,11 +282,9 @@ ConnectVideo.prototype.loadThemeForUser = function (userId) {
         $timerText.html(i);
         if(i == 0){
             $("#colorFont").addClass('hide');
-            if(!$callerExplication.hasClass('hide')){
-                $callerExplication.addClass('hide');
-            }
-            if(!$calledExplication.hasClass('hide')){
-                $calledExplication.addClass('hide');
+            if(!$('#generationTheme, .notificationSymbol').hasClass('hide')){
+				$('#generationTheme, .notificationSymbol').removeClass('fadeInUp');
+				$('#generationTheme, .notificationSymbol').addClass('fadeOut');
             }
             $timerText.addClass('hide');
             $timerText.html('');

@@ -80,7 +80,6 @@ html, body{
 }
 
 #notificationTimeline {
-    display: inline-block;
     height: 100vh;
     width: 5px;
     position: absolute;
@@ -111,6 +110,7 @@ html, body{
     left: 80px;
     border-radius: 15px;
     box-shadow: 5px 5px rgba(112,36,47,0.3);
+	z-index: 99;
 }
 
 .notificationTitle {
