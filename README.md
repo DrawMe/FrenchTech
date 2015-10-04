@@ -27,10 +27,11 @@ II. PRINCIPE DU JEU
 
 III. PRISE EN MAIN
 
-  |Avant de débuter, rendez-vous à cette adresse avec votre smartphone pour vous permettre de dessiner :
+  | Avant de débuter, rendez-vous à cette adresse avec votre smartphone pour vous permettre de dessiner :
   http://michaelgenty.com/DrawMe/index.html
 
-  | Pour tout ce qui est navigation sur l'interface, utilisez vos mains pour interagir avec les boutons. 
+  | Pour tout ce qui est navigation sur l'interface, utilisez vos mains pour interagir avec les boutons.
+  
   | Une fois le jeu en lui-même débuté :
   
         - Un switch permet de passer d'un outil à l'autre. Le jeu possède deux outils: le crayon et la gomme.
