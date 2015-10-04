@@ -5,13 +5,19 @@
 I. INSTALLATION
 
   Modules à installer : 
+  
     - Express
+    
     - Socket IO
+   
     - Peer
     
   Adresse Ip à modifier dans les fichiers :
+  
     - index.html : ligne 6
+    
     - client.js : ligne 115
+    
     
   Lancer le serveur node. 
   
@@ -26,5 +32,7 @@ III. PRISE EN MAIN
 
   | Pour tout ce qui est navigation sur l'interface, utilisez vos mains pour interagir avec les boutons. 
   | Une fois le jeu en lui-même débuté :
+  
         - Un switch permet de passer d'un outil à l'autre. Le jeu possède deux outils: le crayon et la gomme.
+        
         - Un touch permet de simuler la pose du crayon ou son levé
